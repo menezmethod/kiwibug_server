@@ -1,0 +1,76 @@
+// EMPLOYEES
+{
+    "employeeName": "Luis Gimenez",
+    "employeeEmail": "menez@menez.com",
+    "employeeRole": "ADMIN",
+    "username": "menez",
+    "createdOn": "2021-12-03 12:08:02",
+    "createdBy": "menez",
+    "modifiedOn": "2021-12-13 11:08:02",
+    "modifiedBy": "kiwi"
+    }
+
+    {
+        "employeeName": "Kiwi Husky",
+        "employeeEmail": "kiwi@menez.com",
+        "employeeRole": "MANAGER",
+        "username": "kiwi",
+        "createdOn": "2021-12-05 12:08:02",
+        "createdBy": "menez",
+        "modifiedOn": "2021-12-09 12:08:02",
+        "modifiedBy": "menez"
+        }
+    
+// PROJECTS
+    {
+        "projectName": "Kiwis Project",
+        "startDate": "2021-12-09 12:08:02",
+        "targetEndDate": "2021-12-14 10:08:02",
+        "actualEndDate": "2021-12-16 12:08:02",
+        "createdOn": "2021-12-05 12:08:02",
+        "createdBy": "menez",
+        "modifiedOn": "2021-12-08 12:08:02",
+        "modifiedBy": "menez"
+    }
+
+       {
+           "projectName": "Menez Project",
+           "startDate": "2021-12-03 12:08:02",
+           "targetEndDate": "2021-12-08 12:08:02",
+           "actualEndDate": "2021-12-09 12:08:02",
+           "createdOn": "2021-12-05 12:08:02",
+           "createdBy": "menez",
+           "modifiedOn": "2021-12-06 12:08:02",
+           "modifiedBy": "kiwi"
+       }
+// ISSUE
+            {
+                    "issueSummary": "Menez Issue",
+                        "issueDescription": "This issue really sucks",
+                        "identifiedDate": "2021-12-08 12:08:02",
+                        "status": "OPEN",
+                        "priority": "HIGH",
+                        "targetResolutionDate": "2021-12-16 11:08:02",
+                        "progress": "",
+                        "actualResolutionDate": "2021-12-08 02:08:02",
+                        "resolutionSummary": "No resolution yet please fix",
+                        "createdOn": "2021-12-09 10:08:02",
+                        "createdBy": "menez",
+                        "modifiedOn": "2021-12-10 11:08:02",
+                        "modifiedBy": "kiwi"
+                        }
+                                    {
+                                            "issueSummary": "Kiwi Issue",
+                                                "issueDescription": "This issue very sucks",
+                                                "identifiedDate": "2021-12-06 12:08:02",
+                                                "status": "CLOSED",
+                                                "priority": "LOW",
+                                                "targetResolutionDate": "2021-12-06 12:08:02",
+                                                "progress": "",
+                                                "actualResolutionDate": "2021-12-06 12:08:02",
+                                                "resolutionSummary": "Resolution found",
+                                                "createdOn": "2021-12-06 12:08:02",
+                                                "createdBy": "kiwi",
+                                                "modifiedOn": "22021-12-06 12:08:02",
+                                                "modifiedBy": "menez"
+                                                }
