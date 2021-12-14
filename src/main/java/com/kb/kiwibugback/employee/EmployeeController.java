@@ -8,7 +8,7 @@ import com.kb.kiwibugback.project.ProjectRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/api/users")
 public class EmployeeController {
 
     @Autowired

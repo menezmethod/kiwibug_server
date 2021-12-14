@@ -2,16 +2,23 @@ package com.kb.kiwibugback.employee;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kb.kiwibugback.project.Project;
+import com.kb.kiwibugback.role.Role;
+
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "employee", indexes = {
+        @Index(name = "idx_employee_name", columnList = "employee_name")
+})
 @Getter
 @Setter
 @ToString
@@ -26,14 +33,29 @@ public class Employee {
     private String employeeName;
 
     @Email
-    @Column(name = "employee_email")
-    private String employeeEmail;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "employee_role", length = 30)
-    private String employeeRole;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "employee_roles",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    public Employee(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     @Column(name = "username")
     private String username;
+
+    @Size(max = 120)
+    @Column(name = "password")
+    private String password;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_on")

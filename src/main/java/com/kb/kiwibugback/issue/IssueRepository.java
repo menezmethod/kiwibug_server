@@ -8,4 +8,6 @@ public interface IssueRepository extends JpaRepository<Issue, Long> {
     List<Issue> findByIssueSummary(String issueSummary);
 
     List<Issue> findByTargetResolutionDateIsNull();
+
+    long deleteByIssuesId(Long issuesId);
 }

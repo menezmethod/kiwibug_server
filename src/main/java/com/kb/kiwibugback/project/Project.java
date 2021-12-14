@@ -12,7 +12,9 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "project")
+@Table(name = "project", indexes = {
+        @Index(name = "idx_project_name", columnList = "project_name")
+})
 @Getter
 @Setter
 @ToString

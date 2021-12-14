@@ -73,4 +73,13 @@
                                                 "createdBy": "kiwi",
                                                 "modifiedOn": "22021-12-06 12:08:02",
                                                 "modifiedBy": "menez"
-                                                }
+
+
+                  INSERT INTO public.project (project_id, actual_end_date, created_by, created_on, modified_by, modified_on, project_name, start_date, target_end_date) VALUES (1, '2021-12-09 12:08:02.000000', 'menez', '2021-12-05 12:08:02.000000', 'kiwi', '2021-12-06 12:08:02.000000', 'Menez Project', '2021-12-03 12:08:02.000000', '2021-12-08 12:08:02.000000');
+                  INSERT INTO public.project (project_id, actual_end_date, created_by, created_on, modified_by, modified_on, project_name, start_date, target_end_date) VALUES (2, '2021-12-16 12:08:02.000000', 'menez', '2021-12-05 12:08:02.000000', 'menez', '2021-12-08 12:08:02.000000', 'Kiwis Project', '2021-12-09 12:08:02.000000', '2021-12-14 10:08:02.000000');
+
+                  INSERT INTO public.employee (employee_id, created_by, created_on, employee_email, employee_name, employee_role, modified_by, modified_on, username, assigned_projects) VALUES (1, 'menez', '2021-12-03 12:08:02.000000', 'menez@menez.com', 'Luis Gimenez', 'ADMIN', 'kiwi', '2021-12-13 11:08:02.000000', 'menez', 1);
+                  INSERT INTO public.employee (employee_id, created_by, created_on, employee_email, employee_name, employee_role, modified_by, modified_on, username, assigned_projects) VALUES (2, 'menez', '2021-12-05 12:08:02.000000', 'kiwi@menez.com', 'Kiwi Husky', 'MANAGER', 'menez', '2021-12-09 12:08:02.000000', 'kiwi', 2);
+
+                  INSERT INTO public.issue (issue_id, actual_resolution_date, created_by, created_on, identified_date, issue_description, issue_summary, modified_by, modified_on, priority, progress, resolution_summary, status, target_resolution_date, assigned_to_employee_id, identified_by_employee_id, related_project_id) VALUES (2, '2021-12-08 02:08:02.000000', 'menez', '2021-12-09 10:08:02.000000', '2021-12-08 12:08:02.000000', '30518', 'Menez Issue', 'kiwi', '2021-12-10 11:08:02.000000', 'HIGH', '30519', '30520', 'OPEN', '2021-12-16 11:08:02.000000', 2, 1, 2);
+                  INSERT INTO public.issue (issue_id, actual_resolution_date, created_by, created_on, identified_date, issue_description, issue_summary, modified_by, modified_on, priority, progress, resolution_summary, status, target_resolution_date, assigned_to_employee_id, identified_by_employee_id, related_project_id) VALUES (1, '2021-12-09 12:08:02.000000', 'kiwi', '2021-12-05 12:10:08.000000', '2021-12-05 12:08:02.000000', '30515', 'Kiwi Issue', 'menez', '2021-12-07 12:08:02.000000', 'LOW', '30516', '30517', 'CLOSED', '2021-12-07 12:08:02.000000', 1, 1, 1);                              }

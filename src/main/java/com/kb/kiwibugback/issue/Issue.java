@@ -11,7 +11,9 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "issue")
+@Table(name = "issue", indexes = {
+        @Index(name = "idx_issue_summary", columnList = "issue_summary")
+})
 @Getter
 @Setter
 @ToString

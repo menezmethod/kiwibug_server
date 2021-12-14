@@ -1,8 +1,6 @@
 package com.kb.kiwibugback.project;
 
-import com.kb.kiwibugback.employee.Employee;
 import com.kb.kiwibugback.employee.EmployeeRepository;
-import com.kb.kiwibugback.issue.Issue;
 import com.kb.kiwibugback.issue.IssueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/projects")
+@RequestMapping("/api/projects")
 public class ProjectController {
 
         @Autowired
