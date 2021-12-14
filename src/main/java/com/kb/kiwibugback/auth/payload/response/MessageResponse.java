@@ -1,4 +1,4 @@
-package com.kb.kiwibugback.payload.response;
+package com.kb.kiwibugback.auth.payload.response;
 
 public class MessageResponse {
 	private String message;

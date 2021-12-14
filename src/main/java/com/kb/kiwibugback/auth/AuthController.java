@@ -1,4 +1,4 @@
-package com.kb.kiwibugback.employee;
+package com.kb.kiwibugback.auth;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.kb.kiwibugback.employee.Employee;
+import com.kb.kiwibugback.employee.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,13 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kb.kiwibugback.role.ERole;
 import com.kb.kiwibugback.role.Role;
-import com.kb.kiwibugback.payload.request.LoginRequest;
-import com.kb.kiwibugback.payload.request.SignupRequest;
-import com.kb.kiwibugback.payload.response.JwtResponse;
-import com.kb.kiwibugback.payload.response.MessageResponse;
+import com.kb.kiwibugback.auth.payload.request.LoginRequest;
+import com.kb.kiwibugback.auth.payload.request.SignupRequest;
+import com.kb.kiwibugback.auth.payload.response.JwtResponse;
+import com.kb.kiwibugback.auth.payload.response.MessageResponse;
 import com.kb.kiwibugback.role.RoleRepository;
-import com.kb.kiwibugback.security.jwt.JwtUtils;
-import com.kb.kiwibugback.security.services.UserDetailsImpl;
+import com.kb.kiwibugback.auth.security.jwt.JwtUtils;
+import com.kb.kiwibugback.auth.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

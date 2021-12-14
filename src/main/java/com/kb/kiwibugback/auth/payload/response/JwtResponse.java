@@ -1,4 +1,4 @@
-package com.kb.kiwibugback.payload.response;
+package com.kb.kiwibugback.auth.payload.response;
 
 import java.util.List;
 

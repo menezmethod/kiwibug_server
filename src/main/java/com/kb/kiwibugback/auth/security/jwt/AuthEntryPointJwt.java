@@ -1,4 +1,4 @@
-package com.kb.kiwibugback.security.jwt;
+package com.kb.kiwibugback.auth.security.jwt;
 
 import java.io.IOException;
 import java.util.HashMap;

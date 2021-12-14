@@ -1,4 +1,4 @@
-package com.kb.kiwibugback.employee;
+package com.kb.kiwibugback.auth;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +30,7 @@ public class TestController {
 	@GetMapping("/lead")
 	@PreAuthorize("hasRole('LEAD')")
 	public String leadAccess() {
-		return "Moderator Board.";
+		return "Lead Board.";
 	}
 
 	@GetMapping("/admin")

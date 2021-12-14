@@ -1,4 +1,4 @@
-package com.kb.kiwibugback.security.services;
+package com.kb.kiwibugback.auth.security.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package com.kb.kiwibugback.security.jwt;
+package com.kb.kiwibugback.auth.security.jwt;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.kb.kiwibugback.security.services.UserDetailsImpl;
+import com.kb.kiwibugback.auth.security.services.UserDetailsImpl;
 
 import io.jsonwebtoken.*;
 

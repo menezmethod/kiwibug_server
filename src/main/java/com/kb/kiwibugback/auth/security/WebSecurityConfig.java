@@ -1,5 +1,8 @@
-package com.kb.kiwibugback.security;
+package com.kb.kiwibugback.auth.security;
 
+import com.kb.kiwibugback.auth.security.jwt.AuthEntryPointJwt;
+import com.kb.kiwibugback.auth.security.jwt.AuthTokenFilter;
+import com.kb.kiwibugback.auth.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.kb.kiwibugback.security.jwt.AuthEntryPointJwt;
-import com.kb.kiwibugback.security.jwt.AuthTokenFilter;
-import com.kb.kiwibugback.security.services.UserDetailsServiceImpl;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -26,7 +25,7 @@ import com.kb.kiwibugback.security.services.UserDetailsServiceImpl;
 		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-	UserDetailsServiceImpl userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;

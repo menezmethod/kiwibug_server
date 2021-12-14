@@ -1,4 +1,4 @@
-package com.kb.kiwibugback.payload.request;
+package com.kb.kiwibugback.auth.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
