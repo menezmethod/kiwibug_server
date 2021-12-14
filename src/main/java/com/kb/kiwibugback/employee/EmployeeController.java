@@ -18,16 +18,19 @@ public class EmployeeController {
     ProjectRepository projectRepository;
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000/")
     List<Employee> getEmployees() {
         return employeeRepository.findAll();
     }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000/")
     Employee createEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
     }
 
     @PutMapping("/{employeeId}/projects/{projectId}")
+    @CrossOrigin(origins = "http://localhost:3000/")
     Employee assignProjectToEmployee(
                 @PathVariable Long projectId,
                 @PathVariable Long employeeId

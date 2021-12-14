@@ -9,5 +9,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Set<Employee> findByEmployeeName(String employeeName);
 
     List<Employee> findByCreatedByIsNull();
-
 }

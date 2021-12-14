@@ -23,34 +23,14 @@ public class ProjectController {
         IssueRepository issueRepository;
 
         @GetMapping
+        @CrossOrigin(origins = "http://localhost:3000/")
         List<Project> getProjects() {
             return projectRepository.findAll();
         }
 
         @PostMapping
+        @CrossOrigin(origins = "http://localhost:3000/")
         Project createProject(@RequestBody Project project) {
             return projectRepository.save(project);
         }
-
-//        @PutMapping("/{projectId}/employees/{employeeId}")
-//        Project addEmployeeToProject(
-//                @PathVariable Long projectId,
-//                @PathVariable Long employeeId
-//        ) {
-//            Project project = projectRepository.findById(projectId).get();
-//            Employee employee = employeeRepository.findById(employeeId).get();
-//            project.assignEmployees.add(employee);
-//            return projectRepository.save(project);
-//        }
-//
-//        @PutMapping("/{projectId}/issue/{issueId}")
-//        Project assignIssueToProject(
-//                @PathVariable Long projectId,
-//                @PathVariable Long issueId
-//        ) {
-//            Project project = projectRepository.findById(projectId).get();
-//            Issue issue = issueRepository.findById(issueId).get();
-//            project.setIssue(issue);
-//            return projectRepository.save(project);
-//        }
 }

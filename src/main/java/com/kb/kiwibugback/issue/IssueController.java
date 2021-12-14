@@ -21,16 +21,19 @@ public class IssueController {
     ProjectRepository projectRepository;
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000/")
     List<Issue> getIssues() {
         return issueRepository.findAll();
     }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000/")
     Issue createIssue(@RequestBody Issue issue) {
         return issueRepository.save(issue);
     }
 
     @PutMapping("/{issueId}/employees/assign/{employeeId}")
+    @CrossOrigin(origins = "http://localhost:3000/")
     Issue assignToEmployee(
             @PathVariable Long issueId,
             @PathVariable Long employeeId
@@ -42,6 +45,7 @@ public class IssueController {
     }
 
     @PutMapping("/{issueId}/employees/id/{employeeId}")
+    @CrossOrigin(origins = "http://localhost:3000/")
     Issue identifiedByEmployee(
             @PathVariable Long issueId,
             @PathVariable Long employeeId
@@ -53,6 +57,7 @@ public class IssueController {
     }
 
     @PutMapping("/{issueId}/projects/{projectId}")
+    @CrossOrigin(origins = "http://localhost:3000/")
     Issue assignProjectToIssue(
             @PathVariable Long issueId,
             @PathVariable Long projectId
