@@ -7,7 +7,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -28,28 +28,28 @@ public class Project {
     @Column(name = "project_name", nullable = false)
     private String projectName;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private Date startDate;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "target_end_date")
-    private LocalDateTime targetEndDate;
+    private Date targetEndDate;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "actual_end_date")
-    private LocalDateTime actualEndDate;
+    private Date actualEndDate;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_on")
-    private LocalDateTime createdOn;
+    private Date createdOn;
 
     @Column(name = "created_by")
     private String createdBy;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "modified_on")
-    private LocalDateTime modifiedOn;
+    private Date modifiedOn;
 
     @Column(name = "modified_by")
     private String modifiedBy;

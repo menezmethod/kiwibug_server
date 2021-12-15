@@ -1,5 +1,6 @@
 package com.kb.kiwibugback.auth.payload.request;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.validation.constraints.*;
@@ -13,7 +14,11 @@ public class SignupRequest {
     @Size(max = 50)
     @Email
     private String email;
-    
+
+    private String employeeName;
+
+    private Date createdOn;
+
     private Set<String> role;
     
     @NotBlank
@@ -23,11 +28,25 @@ public class SignupRequest {
     public String getUsername() {
         return username;
     }
- 
+
+    public String getName() {
+        return employeeName;
+    }
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
     public void setUsername(String username) {
         this.username = username;
     }
- 
+
+    public void setName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
     public String getEmail() {
         return email;
     }

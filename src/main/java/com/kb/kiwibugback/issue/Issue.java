@@ -7,7 +7,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -31,9 +31,9 @@ public class Issue {
     @Column(name = "issue_description")
     private String issueDescription;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+////    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "identified_date")
-    private LocalDateTime identifiedDate;
+    private Date identifiedDate;
 
     @Column(name = "status", length = 30)
     private String status;
@@ -41,32 +41,32 @@ public class Issue {
     @Column(name = "priority", length = 30)
     private String priority;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "target_resolution_date")
-    private LocalDateTime targetResolutionDate;
+    private Date targetResolutionDate;
 
     @Lob
     @Column(name = "progress")
     private String progress;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "actual_resolution_date")
-    private LocalDateTime actualResolutionDate;
+    private Date actualResolutionDate;
 
     @Lob
     @Column(name = "resolution_summary")
     private String resolutionSummary;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_on")
-    private LocalDateTime createdOn;
+    private Date createdOn;
 
     @Column(name = "created_by")
     private String createdBy;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "modified_on")
-    private LocalDateTime modifiedOn;
+    private Date modifiedOn;
 
     @Column(name = "modified_by")
     private String modifiedBy;
