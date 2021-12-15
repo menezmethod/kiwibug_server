@@ -11,9 +11,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "issue", indexes = {
-        @Index(name = "idx_issue_summary", columnList = "issue_summary")
-})
+@Table(name = "issue", indexes = @Index(name = "idx_issue_summary", columnList = "issue_summary"))
 @Getter
 @Setter
 @ToString
@@ -83,26 +81,26 @@ public class Issue {
     @JoinColumn(name = "related_project_id")
     private Project relatedProjectId;
 
-    public void setIssueToEmployeeId(Employee employee) {
-        this.assignedToEmployeeId = employee;
+    public void setIssueToEmployeeId(final Employee employee) {
+        assignedToEmployeeId = employee;
     }
-    public void setIdentifiedByEmployeeId(Employee employee) {
-        this.identifiedByEmployeeId = employee;
+    public void setIdentifiedByEmployeeId(final Employee employee) {
+        identifiedByEmployeeId = employee;
     }
-    public void setProject(Project project) {
-        this.relatedProjectId = project;
+    public void setProject(final Project project) {
+        relatedProjectId = project;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Issue issue = (Issue) o;
-        return issuesId != null && Objects.equals(issuesId, issue.issuesId);
+        final Issue issue = (Issue) o;
+        return this.issuesId != null && Objects.equals(this.issuesId, issue.issuesId);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return this.getClass().hashCode();
     }
 }

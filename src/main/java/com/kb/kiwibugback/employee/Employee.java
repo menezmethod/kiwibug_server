@@ -16,9 +16,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "employee", indexes = {
-        @Index(name = "idx_employee_name", columnList = "employee_name")
-})
+@Table(name = "employee", indexes = @Index(name = "idx_employee_name", columnList = "employee_name"))
 @Getter
 @Setter
 @ToString
@@ -44,7 +42,7 @@ public class Employee {
     )
     private Set<Role> roles = new HashSet<>();
 
-    public Employee(String username, String email, String password, String employeeName, Date createdOn) {
+    public Employee(final String username, final String email, final String password, final String employeeName, final Date createdOn) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -75,20 +73,20 @@ public class Employee {
     @JoinColumn(name = "assigned_projects")
     private Project assignedProjects;
 
-    public void setProject(Project project) {
-        this.assignedProjects = project;
+    public void setProject(final Project project) {
+        assignedProjects = project;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Employee employee = (Employee) o;
-        return employeeId != null && Objects.equals(employeeId, employee.employeeId);
+        final Employee employee = (Employee) o;
+        return this.employeeId != null && Objects.equals(this.employeeId, employee.employeeId);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return this.getClass().hashCode();
     }
 }

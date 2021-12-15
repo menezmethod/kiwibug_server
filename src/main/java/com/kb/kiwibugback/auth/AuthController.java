@@ -53,16 +53,16 @@ public class AuthController {
 	JwtUtils jwtUtils;
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody final LoginRequest loginRequest) {
 
-		Authentication authentication = authenticationManager.authenticate(
+		final Authentication authentication = this.authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
+		final String jwt = this.jwtUtils.generateJwtToken(authentication);
 		
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
-		List<String> roles = userDetails.getAuthorities().stream()
+		final UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+		final List<String> roles = userDetails.getAuthorities().stream()
 				.map(GrantedAuthority::getAuthority)
 				.collect(Collectors.toList());
 
@@ -74,54 +74,54 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		if (employeeRepository.existsByUsername(signUpRequest.getUsername())) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody final SignupRequest signUpRequest) {
+		if (this.employeeRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
 
-		if (employeeRepository.existsByEmail(signUpRequest.getEmail())) {
+		if (this.employeeRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
 
 		// Create new user's account
-		Employee employee = new Employee(signUpRequest.getUsername(),
+		final Employee employee = new Employee(signUpRequest.getUsername(),
 							 signUpRequest.getEmail(),
-							 encoder.encode(signUpRequest.getPassword()), signUpRequest.getName(), signUpRequest.getCreatedOn());
+				this.encoder.encode(signUpRequest.getPassword()), signUpRequest.getName(), signUpRequest.getCreatedOn());
 
-		Set<String> strRoles = signUpRequest.getRole();
-		Set<Role> roles = new HashSet<>();
+		final Set<String> strRoles = signUpRequest.getRole();
+		final Set<Role> roles = new HashSet<>();
 
 		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+			final Role userRole = this.roleRepository.findByName(ERole.ROLE_USER)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
 				case "admin":
-					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+					final Role adminRole = this.roleRepository.findByName(ERole.ROLE_ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
 
 					break;
 				case "manager":
-						Role managerRole = roleRepository.findByName(ERole.ROLE_MANAGER)
+						final Role managerRole = this.roleRepository.findByName(ERole.ROLE_MANAGER)
 								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 						roles.add(managerRole);
 
 						break;
 				case "lead":
-					Role leadRole = roleRepository.findByName(ERole.ROLE_LEAD)
+					final Role leadRole = this.roleRepository.findByName(ERole.ROLE_LEAD)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(leadRole);
 
 					break;
 				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+					final Role userRole = this.roleRepository.findByName(ERole.ROLE_USER)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
 				}
@@ -129,7 +129,7 @@ public class AuthController {
 		}
 
 		employee.setRoles(roles);
-		employeeRepository.save(employee);
+		this.employeeRepository.save(employee);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}

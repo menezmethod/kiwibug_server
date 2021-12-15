@@ -17,23 +17,23 @@ public class Role {
 
     }
 
-    public Role(ERole name) {
+    public Role(final ERole name) {
         this.name = name;
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(final Integer id) {
         this.id = id;
     }
 
     public ERole getName() {
-        return name;
+        return this.name;
     }
 
-    public void setName(ERole name) {
+    public void setName(final ERole name) {
         this.name = name;
     }
 }

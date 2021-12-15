@@ -22,33 +22,33 @@ public class JwtUtils {
   @Value("${kiwibug.app.jwtExpirationMs}")
   private int jwtExpirationMs;
 
-  public String generateJwtToken(Authentication authentication) {
+  public String generateJwtToken(final Authentication authentication) {
 
-    UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+    final UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
     return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
-        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, jwtSecret)
+        .setExpiration(new Date((new Date()).getTime() + this.jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, this.jwtSecret)
         .compact();
   }
 
-  public String getUserNameFromJwtToken(String token) {
-    return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+  public String getUserNameFromJwtToken(final String token) {
+    return Jwts.parser().setSigningKey(this.jwtSecret).parseClaimsJws(token).getBody().getSubject();
   }
 
-  public boolean validateJwtToken(String authToken) {
+  public boolean validateJwtToken(final String authToken) {
     try {
-      Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+      Jwts.parser().setSigningKey(this.jwtSecret).parseClaimsJws(authToken);
       return true;
-    } catch (SignatureException e) {
-      logger.error("Invalid JWT signature: {}", e.getMessage());
-    } catch (MalformedJwtException e) {
-      logger.error("Invalid JWT token: {}", e.getMessage());
-    } catch (ExpiredJwtException e) {
-      logger.error("JWT token is expired: {}", e.getMessage());
-    } catch (UnsupportedJwtException e) {
-      logger.error("JWT token is unsupported: {}", e.getMessage());
-    } catch (IllegalArgumentException e) {
-      logger.error("JWT claims string is empty: {}", e.getMessage());
+    } catch (final SignatureException e) {
+      JwtUtils.logger.error("Invalid JWT signature: {}", e.getMessage());
+    } catch (final MalformedJwtException e) {
+      JwtUtils.logger.error("Invalid JWT token: {}", e.getMessage());
+    } catch (final ExpiredJwtException e) {
+      JwtUtils.logger.error("JWT token is expired: {}", e.getMessage());
+    } catch (final UnsupportedJwtException e) {
+      JwtUtils.logger.error("JWT token is unsupported: {}", e.getMessage());
+    } catch (final IllegalArgumentException e) {
+      JwtUtils.logger.error("JWT claims string is empty: {}", e.getMessage());
     }
     return false;
   }

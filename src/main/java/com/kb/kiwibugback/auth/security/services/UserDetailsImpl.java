@@ -28,8 +28,8 @@ public class UserDetailsImpl implements UserDetails {
 
 	private final Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String email, String employeeName, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+	public UserDetailsImpl(final Long id, final String username, final String email, final String employeeName, final String password,
+						   final Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -38,8 +38,8 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public static UserDetailsImpl build(Employee employee) {
-		List<GrantedAuthority> authorities = employee.getRoles().stream()
+	public static UserDetailsImpl build(final Employee employee) {
+		final List<GrantedAuthority> authorities = employee.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());
 
@@ -54,29 +54,29 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities;
+		return this.authorities;
 	}
 
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	@Override
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public String getName() {
-		return employeeName;
+		return this.employeeName;
 	}
 
 	@Override
@@ -100,12 +100,12 @@ public class UserDetailsImpl implements UserDetails {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(final Object o) {
 		if (this == o)
 			return true;
-		if (o == null || getClass() != o.getClass())
+		if (o == null || this.getClass() != o.getClass())
 			return false;
-		UserDetailsImpl user = (UserDetailsImpl) o;
-		return Objects.equals(id, user.id);
+		final UserDetailsImpl user = (UserDetailsImpl) o;
+		return Objects.equals(this.id, user.id);
 	}
 }

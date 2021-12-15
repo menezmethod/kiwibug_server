@@ -12,9 +12,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "project", indexes = {
-        @Index(name = "idx_project_name", columnList = "project_name")
-})
+@Table(name = "project", indexes = @Index(name = "idx_project_name", columnList = "project_name"))
 @Getter
 @Setter
 @ToString
@@ -60,15 +58,15 @@ public class Project {
     private Set<Employee> employees;
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Project project = (Project) o;
-        return projectId != null && Objects.equals(projectId, project.projectId);
+        final Project project = (Project) o;
+        return this.projectId != null && Objects.equals(this.projectId, project.projectId);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return this.getClass().hashCode();
     }
 }

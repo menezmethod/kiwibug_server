@@ -23,15 +23,15 @@ public class ProjectController {
 
         @GetMapping
         @CrossOrigin(origins = "*")
-        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+//        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
         List<Project> getProjects() {
-            return projectRepository.findAll();
+            return this.projectRepository.findAll();
         }
 
         @PostMapping
         @CrossOrigin(origins = "*")
         @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-        Project createProject(@RequestBody Project project) {
+        Project createProject(@RequestBody final Project project) {
             return projectRepository.save(project);
         }
 }

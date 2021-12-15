@@ -26,48 +26,48 @@ public class SignupRequest {
     private String password;
   
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public String getName() {
-        return employeeName;
+        return this.employeeName;
     }
     public Date getCreatedOn() {
-        return createdOn;
+        return this.createdOn;
     }
 
-    public void setCreatedOn(Date createdOn) {
+    public void setCreatedOn(final Date createdOn) {
         this.createdOn = createdOn;
     }
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
-    public void setName(String employeeName) {
+    public void setName(final String employeeName) {
         this.employeeName = employeeName;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
  
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
  
     public String getPassword() {
-        return password;
+        return this.password;
     }
  
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
     
     public Set<String> getRole() {
-      return this.role;
+      return role;
     }
     
-    public void setRole(Set<String> role) {
+    public void setRole(final Set<String> role) {
       this.role = role;
     }
 }
