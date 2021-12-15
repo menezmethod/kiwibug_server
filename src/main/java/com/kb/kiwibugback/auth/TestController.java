@@ -21,16 +21,16 @@ public class TestController {
 		return "User Content.";
 	}
 
-	@GetMapping("/manager")
-	@PreAuthorize("hasRole('MANAGER')")
-	public String managerAccess() {
-		return "Manager Board.";
-	}
-
 	@GetMapping("/lead")
-	@PreAuthorize("hasRole('LEAD')")
+	@PreAuthorize("hasRole('LEAD') or hasRole('ADMIN') or hasRole('MANAGER')  ")
 	public String leadAccess() {
 		return "Lead Board.";
+	}
+
+	@GetMapping("/manager")
+	@PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+	public String managerAccess() {
+		return "Manager Board.";
 	}
 
 	@GetMapping("/admin")

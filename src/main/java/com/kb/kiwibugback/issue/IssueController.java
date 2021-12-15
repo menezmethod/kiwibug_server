@@ -5,6 +5,7 @@ import com.kb.kiwibugback.employee.EmployeeRepository;
 import com.kb.kiwibugback.project.Project;
 import com.kb.kiwibugback.project.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,19 +22,22 @@ public class IssueController {
     ProjectRepository projectRepository;
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000/")
+    @CrossOrigin(origins = "*")
+    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     List<Issue> getIssues() {
         return issueRepository.findAll();
     }
 
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:3000/")
+    @CrossOrigin(origins = "*")
+    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     Issue createIssue(@RequestBody Issue issue) {
         return issueRepository.save(issue);
     }
 
     @PutMapping("/{issueId}/employees/assign/{employeeId}")
-    @CrossOrigin(origins = "http://localhost:3000/")
+    @PreAuthorize("hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+    @CrossOrigin(origins = "*")
     Issue assignToEmployee(
             @PathVariable Long issueId,
             @PathVariable Long employeeId
@@ -45,7 +49,8 @@ public class IssueController {
     }
 
     @PutMapping("/{issueId}/employees/id/{employeeId}")
-    @CrossOrigin(origins = "http://localhost:3000/")
+    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+    @CrossOrigin(origins = "*")
     Issue identifiedByEmployee(
             @PathVariable Long issueId,
             @PathVariable Long employeeId
@@ -57,7 +62,8 @@ public class IssueController {
     }
 
     @PutMapping("/{issueId}/projects/{projectId}")
-    @CrossOrigin(origins = "http://localhost:3000/")
+    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+    @CrossOrigin(origins = "*")
     Issue assignProjectToIssue(
             @PathVariable Long issueId,
             @PathVariable Long projectId

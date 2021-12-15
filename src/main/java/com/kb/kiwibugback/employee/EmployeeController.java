@@ -2,6 +2,7 @@ package com.kb.kiwibugback.employee;
 
 import com.kb.kiwibugback.project.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.kb.kiwibugback.project.ProjectRepository;
 
@@ -18,19 +19,22 @@ public class EmployeeController {
     ProjectRepository projectRepository;
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000/")
+    @CrossOrigin(origins = "*")
+    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     List<Employee> getEmployees() {
         return employeeRepository.findAll();
     }
 
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:3000/")
+    @CrossOrigin(origins = "*")
+    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     Employee createEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
     }
 
     @PutMapping("/{employeeId}/projects/{projectId}")
-    @CrossOrigin(origins = "http://localhost:3000/")
+    @CrossOrigin(origins = "*")
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     Employee assignProjectToEmployee(
                 @PathVariable Long projectId,
                 @PathVariable Long employeeId
