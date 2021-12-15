@@ -29,7 +29,7 @@ public class Employee {
     @Column(name = "employee_id", nullable = false)
     private Long employeeId;
 
-    @Column(name = "employee_name", nullable = false)
+    @Column(name = "employee_name")
     private String employeeName;
 
     @Email

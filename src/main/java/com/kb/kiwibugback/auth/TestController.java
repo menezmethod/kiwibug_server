@@ -24,7 +24,7 @@ public class TestController {
 	@GetMapping("/manager")
 	@PreAuthorize("hasRole('MANAGER')")
 	public String managerAccess() {
-		return "Moderator Board.";
+		return "Manager Board.";
 	}
 
 	@GetMapping("/lead")
