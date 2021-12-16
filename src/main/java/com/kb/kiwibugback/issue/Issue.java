@@ -29,8 +29,8 @@ public class Issue {
     @Column(name = "issue_summary", nullable = false)
     private String issueSummary;
 
-    @Lob
-    @Column(name = "issue_description")
+
+    @Column(name = "issue_description", columnDefinition="text")
     private String issueDescription;
 
     @Column(name = "identified_date")
@@ -45,15 +45,15 @@ public class Issue {
     @Column(name = "target_resolution_date")
     private LocalDate targetResolutionDate;
 
-    @Lob
-    @Column(name = "progress")
+
+    @Column(name = "progress", columnDefinition="text")
     private String progress;
 
     @Column(name = "actual_resolution_date")
     private LocalDate actualResolutionDate;
 
-    @Lob
-    @Column(name = "resolution_summary")
+
+    @Column(name = "resolution_summary", columnDefinition="text")
     private String resolutionSummary;
 
     @CreationTimestamp
