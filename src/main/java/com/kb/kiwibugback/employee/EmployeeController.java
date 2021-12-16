@@ -25,13 +25,13 @@ public class EmployeeController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     Employee createEmployee(@RequestBody final Employee employee) {
         return this.employeeRepository.save(employee);
     }
 
     @PutMapping("/{employeeId}/projects/{projectId}")
-    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     Employee assignProjectToEmployee(
             @PathVariable final Long projectId,
             @PathVariable final Long employeeId

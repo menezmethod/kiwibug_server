@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/projects")
 public class ProjectController {
 
@@ -22,15 +23,13 @@ public class ProjectController {
         IssueRepository issueRepository;
 
         @GetMapping
-        @CrossOrigin(origins = "*")
 //        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
         List<Project> getProjects() {
             return this.projectRepository.findAll();
         }
 
         @PostMapping
-        @CrossOrigin(origins = "*")
-        @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+//        @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
         Project createProject(@RequestBody final Project project) {
             return projectRepository.save(project);
         }

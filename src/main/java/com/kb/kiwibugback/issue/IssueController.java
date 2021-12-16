@@ -29,13 +29,13 @@ public class IssueController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     Issue createIssue(@RequestBody final Issue issue) {
         return this.issueRepository.save(issue);
     }
 
     @PutMapping("/{issueId}/employees/assign/{employeeId}")
-    @PreAuthorize("hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     Issue assignToEmployee(
             @PathVariable final Long issueId,
             @PathVariable final Long employeeId
@@ -47,7 +47,7 @@ public class IssueController {
     }
 
     @PutMapping("/{issueId}/employees/id/{employeeId}")
-    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     Issue identifiedByEmployee(
             @PathVariable final Long issueId,
             @PathVariable final Long employeeId
@@ -59,7 +59,7 @@ public class IssueController {
     }
 
     @PutMapping("/{issueId}/projects/{projectId}")
-    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     Issue assignProjectToIssue(
             @PathVariable final Long issueId,
             @PathVariable final Long projectId
