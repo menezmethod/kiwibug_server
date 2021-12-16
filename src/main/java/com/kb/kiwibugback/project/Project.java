@@ -7,10 +7,9 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -30,28 +29,26 @@ public class Project {
     @Column(name = "project_name", nullable = false)
     private String projectName;
 
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "target_end_date")
-    private LocalDateTime targetEndDate;
+    private LocalDate targetEndDate;
 
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "actual_end_date")
-    private LocalDateTime actualEndDate;
+    private LocalDate actualEndDate;
 
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @CreationTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name = "created_on", nullable = false, updatable = false)
     private LocalDateTime createdOn;
 
     @Column(name = "created_by")
     private String createdBy;
 
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @UpdateTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name = "modified_on")
     private LocalDateTime modifiedOn;
 
