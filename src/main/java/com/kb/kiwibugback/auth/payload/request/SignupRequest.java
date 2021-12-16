@@ -1,5 +1,6 @@
 package com.kb.kiwibugback.auth.payload.request;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ public class SignupRequest {
 
     private String employeeName;
 
-    private Date createdOn;
+//    private LocalDateTime createdOn;
 
     private Set<String> role;
     
@@ -32,13 +33,14 @@ public class SignupRequest {
     public String getName() {
         return this.employeeName;
     }
-    public Date getCreatedOn() {
-        return this.createdOn;
-    }
 
-    public void setCreatedOn(final Date createdOn) {
-        this.createdOn = createdOn;
-    }
+//    public LocalDateTime getCreatedOn() {
+//        return this.createdOn;
+//    }
+
+//    public void setCreatedOn(final LocalDateTime createdOn) {
+//        this.createdOn = createdOn;
+//    }
     public void setUsername(final String username) {
         this.username = username;
     }

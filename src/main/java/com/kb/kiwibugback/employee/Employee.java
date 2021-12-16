@@ -6,11 +6,15 @@ import com.kb.kiwibugback.role.Role;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -42,12 +46,11 @@ public class Employee {
     )
     private Set<Role> roles = new HashSet<>();
 
-    public Employee(final String username, final String email, final String password, final String employeeName, final Date createdOn) {
+    public Employee(final String username, final String email, final String password, final String employeeName) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.employeeName = employeeName;
-        this.createdOn = createdOn;
     }
 
     @Column(name = "username")
@@ -57,14 +60,18 @@ public class Employee {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "created_on")
-    private Date createdOn;
+    @CreationTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column(name = "created_on", nullable = false, updatable = false)
+    private LocalDateTime createdOn;
 
     @Column(name = "created_by")
     private String createdBy;
 
+    @UpdateTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "modified_on")
-    private Date modifiedOn;
+    private LocalDateTime modifiedOn;
 
     @Column(name = "modified_by")
     private String modifiedBy;

@@ -5,9 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kb.kiwibugback.employee.Employee;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -28,26 +32,28 @@ public class Project {
 
 //    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDateTime startDate;
 
 //    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "target_end_date")
-    private Date targetEndDate;
+    private LocalDateTime targetEndDate;
 
 //    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "actual_end_date")
-    private Date actualEndDate;
+    private LocalDateTime actualEndDate;
 
 //    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Column(name = "created_on")
-    private Date createdOn;
+    @CreationTimestamp
+    @Column(name = "created_on", nullable = false, updatable = false)
+    private LocalDateTime createdOn;
 
     @Column(name = "created_by")
     private String createdBy;
 
 //    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @UpdateTimestamp
     @Column(name = "modified_on")
-    private Date modifiedOn;
+    private LocalDateTime modifiedOn;
 
     @Column(name = "modified_by")
     private String modifiedBy;

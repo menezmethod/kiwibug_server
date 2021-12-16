@@ -5,9 +5,13 @@ import com.kb.kiwibugback.employee.Employee;
 import com.kb.kiwibugback.project.Project;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -31,7 +35,7 @@ public class Issue {
 
 ////    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "identified_date")
-    private Date identifiedDate;
+    private LocalDateTime identifiedDate;
 
     @Column(name = "status", length = 30)
     private String status;
@@ -41,7 +45,7 @@ public class Issue {
 
 //    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "target_resolution_date")
-    private Date targetResolutionDate;
+    private LocalDateTime targetResolutionDate;
 
     @Lob
     @Column(name = "progress")
@@ -49,22 +53,24 @@ public class Issue {
 
 //    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "actual_resolution_date")
-    private Date actualResolutionDate;
+    private LocalDateTime actualResolutionDate;
 
     @Lob
     @Column(name = "resolution_summary")
     private String resolutionSummary;
 
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Column(name = "created_on")
-    private Date createdOn;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @CreationTimestamp
+    @Column(name = "created_on", nullable = false, updatable = false)
+    private LocalDateTime createdOn;
 
     @Column(name = "created_by")
     private String createdBy;
 
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @UpdateTimestamp
     @Column(name = "modified_on")
-    private Date modifiedOn;
+    private LocalDateTime modifiedOn;
 
     @Column(name = "modified_by")
     private String modifiedBy;
