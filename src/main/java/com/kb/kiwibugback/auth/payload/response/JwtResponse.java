@@ -11,7 +11,7 @@ public class JwtResponse {
 	private final List<String> roles;
 
 	public JwtResponse(final String accessToken, final Long id, final String username, final String email, final List<String> roles) {
-		token = accessToken;
+        token = accessToken;
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -23,7 +23,7 @@ public class JwtResponse {
 	}
 
 	public void setAccessToken(final String accessToken) {
-		token = accessToken;
+        token = accessToken;
 	}
 
 	public String getTokenType() {
@@ -31,7 +31,7 @@ public class JwtResponse {
 	}
 
 	public void setTokenType(final String tokenType) {
-		type = tokenType;
+        type = tokenType;
 	}
 
 	public Long getId() {

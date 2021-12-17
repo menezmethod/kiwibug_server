@@ -29,7 +29,6 @@ public class Project {
     @Column(name = "project_name", nullable = false)
     private String projectName;
 
-
     @Column(name = "start_date")
     private LocalDate startDate;
 
@@ -59,6 +58,13 @@ public class Project {
     @OneToMany(mappedBy = "assignedProjects", cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
     @ToString.Exclude
     private Set<Employee> employees;
+
+    public Project(String projectName, LocalDate startDate, LocalDate targetEndDate, LocalDate actualEndDate, boolean b) {
+        this.projectName = projectName;
+        this.startDate = startDate;
+        this.targetEndDate = targetEndDate;
+        this.actualEndDate = actualEndDate;
+    }
 
     @Override
     public boolean equals(final Object o) {
