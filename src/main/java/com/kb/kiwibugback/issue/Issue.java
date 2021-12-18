@@ -11,7 +11,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -28,7 +27,6 @@ public class Issue {
 
     @Column(name = "issue_summary", nullable = false)
     private String issueSummary;
-
 
     @Column(name = "issue_description", columnDefinition="text")
     private String issueDescription;
@@ -72,17 +70,31 @@ public class Issue {
     @Column(name = "modified_by")
     private String modifiedBy;
 
-    @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne
     @JoinColumn(name = "assigned_to_employee_id")
     private Employee assignedToEmployeeId;
 
-    @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne
     @JoinColumn(name = "identified_by_employee_id")
     private Employee identifiedByEmployeeId;
 
-    @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne
     @JoinColumn(name = "related_project_id")
     private Project relatedProjectId;
+
+    public Issue(final String issueSummary, final String issueDescription, final LocalDate identifiedDate, final String status, final String priority, final String progress, final LocalDate targetResolutionDate, final String resolutionSummary, final String createdBy, final String modifiedBy) {
+        this.issueSummary = issueSummary;
+        this.issueDescription = issueDescription;
+        this.identifiedDate = identifiedDate;
+        this.status = status;
+        this.priority = priority;
+        this.progress = progress;
+        this.targetResolutionDate = targetResolutionDate;
+        this.resolutionSummary = resolutionSummary;
+        this.createdBy = createdBy;
+        // REPLACE WHEN AUTH
+        this.modifiedBy = modifiedBy;
+    }
 
     public void setIssueToEmployeeId(final Employee employee) {
         assignedToEmployeeId = employee;

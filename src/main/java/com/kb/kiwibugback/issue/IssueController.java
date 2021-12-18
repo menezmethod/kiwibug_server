@@ -5,14 +5,19 @@ import com.kb.kiwibugback.employee.EmployeeRepository;
 import com.kb.kiwibugback.project.Project;
 import com.kb.kiwibugback.project.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/issues")
 public class IssueController {
+
     @Autowired
     IssueRepository issueRepository;
 
@@ -23,29 +28,58 @@ public class IssueController {
     ProjectRepository projectRepository;
 
     @GetMapping
-//    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     List<Issue> getIssues() {
         return this.issueRepository.findAll();
     }
 
+    @GetMapping("{id}")
+//        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+    public ResponseEntity<Issue> getIssueById(@PathVariable("id") long id) {
+        Optional<Issue> issueData = issueRepository.findById(id);
+
+        if (issueData.isPresent()) {
+            return new ResponseEntity<>(issueData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping
-//    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
-    Issue createIssue(@RequestBody final Issue issue) {
-        return this.issueRepository.save(issue);
+//        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+    public ResponseEntity<Issue> createIssue(@RequestBody Issue issue) {
+        try {
+            Issue _issue = issueRepository
+                    .save(new Issue(issue.getIssueSummary(), issue.getIssueDescription(), issue.getIdentifiedDate(), issue.getStatus(), issue.getPriority(), issue.getProgress(), issue.getTargetResolutionDate(), issue.getResolutionSummary(), issue.getCreatedBy(), issue.getModifiedBy()));
+
+            return new ResponseEntity<>(_issue, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @PutMapping("/{issueId}/employees/assign/{employeeId}")
-//    @PreAuthorize("hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
-    Issue assignToEmployee(
-            @PathVariable final Long issueId,
-            @PathVariable final Long employeeId
-    ) {
-        final Issue issue = this.issueRepository.findById(issueId).get();
-        final Employee employee = this.employeeRepository.findById(employeeId).get();
-        issue.setAssignedToEmployeeId(employee);
-        return this.issueRepository.save(issue);
-    }
+    @PutMapping("{id}")
+//        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
 
+    public ResponseEntity<Issue> updateIssue(@PathVariable("id") long id, @RequestBody Issue issue) {
+        Optional<Issue> issueData = issueRepository.findById(id);
+
+        if (issueData.isPresent()) {
+            Issue _issue = issueData.get();
+            _issue.setIssueSummary(issue.getIssueSummary());
+            _issue.setIssueDescription(issue.getIssueDescription());
+            _issue.setIdentifiedDate(issue.getIdentifiedDate());
+            _issue.setStatus(issue.getStatus());
+            _issue.setPriority(issue.getPriority());
+            _issue.setProgress(issue.getProgress());
+            _issue.setTargetResolutionDate(issue.getTargetResolutionDate());
+            _issue.setResolutionSummary(issue.getResolutionSummary());
+            _issue.setCreatedBy(issue.getCreatedBy());
+            _issue.setModifiedBy(issue.getModifiedBy());
+            return new ResponseEntity<>(issueRepository.save(_issue), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @PutMapping("/{issueId}/employees/id/{employeeId}")
 //    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     Issue identifiedByEmployee(
@@ -68,5 +102,29 @@ public class IssueController {
         final Project project = this.projectRepository.findById(projectId).get();
         issue.setProject(project);
         return this.issueRepository.save(issue);
+    }
+
+    @DeleteMapping("{id}")
+//        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+
+    public ResponseEntity<HttpStatus> deleteIssue(@PathVariable("id") long id) {
+        try {
+            issueRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/issues")
+    public ResponseEntity<HttpStatus> deleteAllIssues() {
+        try {
+            issueRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

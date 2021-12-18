@@ -3,6 +3,7 @@ package com.kb.kiwibugback.project;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kb.kiwibugback.employee.Employee;
+import com.kb.kiwibugback.issue.Issue;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,7 +27,7 @@ public class Project {
     @Column(name = "project_id", nullable = false)
     private Long projectId;
 
-    @Column(name = "project_name", nullable = false)
+    @Column(name = "project_name")
     private String projectName;
 
     @Column(name = "start_date")
@@ -55,9 +56,14 @@ public class Project {
     private String modifiedBy;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "assignedProjects", cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
+    @OneToMany(mappedBy = "assignedProjects")
     @ToString.Exclude
     private Set<Employee> employees;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "relatedProjectId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Set<Issue> issues;
 
     public Project(String projectName, LocalDate startDate, LocalDate targetEndDate, LocalDate actualEndDate, boolean b) {
         this.projectName = projectName;

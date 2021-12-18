@@ -1,6 +1,8 @@
 package com.kb.kiwibugback.employee;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kb.kiwibugback.issue.Issue;
 import com.kb.kiwibugback.project.Project;
 import com.kb.kiwibugback.role.Role;
 
@@ -36,7 +38,7 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "employee_roles",
             joinColumns = @JoinColumn(name = "employee_id"),
@@ -74,9 +76,19 @@ public class Employee {
     @Column(name = "modified_by")
     private String modifiedBy;
 
-    @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "assigned_projects")
     private Project assignedProjects;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "identifiedByEmployeeId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Set<Issue> identifiedByEmployeeId;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "assignedToEmployeeId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Set<Issue> assignedToEmployeeId;
 
     public void setProject(final Project project) {
         assignedProjects = project;
