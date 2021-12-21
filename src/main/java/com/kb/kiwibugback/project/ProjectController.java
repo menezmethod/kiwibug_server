@@ -48,30 +48,30 @@ public class ProjectController {
                 }
         }
 
-        @PutMapping("{id}")
-//        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
-
-        public ResponseEntity<Project> updateProject(@PathVariable("id") long id, @RequestBody Project project) {
-                Optional<Project> projectData = projectRepository.findById(id);
-
-                if (projectData.isPresent()) {
-                        Project _project = projectData.get();
-                        _project.setProjectName(project.getProjectName());
-                        _project.setStartDate(project.getStartDate());
-                        _project.setTargetEndDate(project.getTargetEndDate());
-                        _project.setActualEndDate(project.getActualEndDate());
-                        return new ResponseEntity<>(projectRepository.save(_project), HttpStatus.OK);
-                } else {
-                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-        }
+//        @PutMapping("{id}")
+////        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+//
+//        public ResponseEntity<Project> updateProject(@PathVariable("id") long id, @RequestBody Project project) {
+//                Optional<Project> projectData = projectRepository.findById(id);
+//
+//                if (projectData.isPresent()) {
+//                        Project _project = projectData.get();
+//                        _project.setProjectName(project.getProjectName());
+//                        _project.setStartDate(project.getStartDate());
+//                        _project.setTargetEndDate(project.getTargetEndDate());
+//                        _project.setActualEndDate(project.getActualEndDate());
+//                        return new ResponseEntity<>(projectRepository.save(_project), HttpStatus.OK);
+//                } else {
+//                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//                }
+//        }
 
         @DeleteMapping("{id}")
 //        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
 
         public ResponseEntity<HttpStatus> deleteProject(@PathVariable("id") long id) {
                 try {
-                        projectRepository.deleteById(id);
+                    projectRepository.deleteById(id);
                         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                 } catch (Exception e) {
                         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -82,7 +82,7 @@ public class ProjectController {
         @DeleteMapping("/projects")
         public ResponseEntity<HttpStatus> deleteAllProjects() {
                 try {
-                        projectRepository.deleteAll();
+                    projectRepository.deleteAll();
                         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                 } catch (Exception e) {
                         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

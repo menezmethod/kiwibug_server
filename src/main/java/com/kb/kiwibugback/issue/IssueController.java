@@ -49,7 +49,7 @@ public class IssueController {
     public ResponseEntity<Issue> createIssue(@RequestBody Issue issue) {
         try {
             Issue _issue = issueRepository
-                    .save(new Issue(issue.getIssueSummary(), issue.getIssueDescription(), issue.getIdentifiedDate(), issue.getStatus(), issue.getPriority(), issue.getProgress(), issue.getTargetResolutionDate(), issue.getResolutionSummary(), issue.getCreatedBy(), issue.getModifiedBy()));
+                    .save(new Issue(issue.getIssueSummary(), issue.getIssueDescription(), issue.getIdentifiedDate(), issue.getStatus(), issue.getPriority(), issue.getProgress(), issue.getTargetResolutionDate(), issue.getActualResolutionDate(), issue.getResolutionSummary(), issue.getCreatedBy(), issue.getModifiedBy(), issue.getAssignedToEmployeeId(), issue.getIdentifiedByEmployeeId(), issue.getRelatedProjectId()));
 
             return new ResponseEntity<>(_issue, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -68,6 +68,7 @@ public class IssueController {
             _issue.setIssueSummary(issue.getIssueSummary());
             _issue.setIssueDescription(issue.getIssueDescription());
             _issue.setIdentifiedDate(issue.getIdentifiedDate());
+            _issue.setActualResolutionDate(issue.getActualResolutionDate());
             _issue.setStatus(issue.getStatus());
             _issue.setPriority(issue.getPriority());
             _issue.setProgress(issue.getProgress());
@@ -75,6 +76,9 @@ public class IssueController {
             _issue.setResolutionSummary(issue.getResolutionSummary());
             _issue.setCreatedBy(issue.getCreatedBy());
             _issue.setModifiedBy(issue.getModifiedBy());
+            _issue.setAssignedToEmployeeId(issue.getAssignedToEmployeeId());
+            _issue.setIdentifiedByEmployeeId(issue.getIdentifiedByEmployeeId());
+            _issue.setRelatedProjectId(issue.getRelatedProjectId());
             return new ResponseEntity<>(issueRepository.save(_issue), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

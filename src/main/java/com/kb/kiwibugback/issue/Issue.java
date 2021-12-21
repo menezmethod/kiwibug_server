@@ -1,10 +1,12 @@
 package com.kb.kiwibugback.issue;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kb.kiwibugback.employee.Employee;
 import com.kb.kiwibugback.project.Project;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -82,16 +84,21 @@ public class Issue {
     @JoinColumn(name = "related_project_id")
     private Project relatedProjectId;
 
-    public Issue(final String issueSummary, final String issueDescription, final LocalDate identifiedDate, final String status, final String priority, final String progress, final LocalDate targetResolutionDate, final String resolutionSummary, final String createdBy, final String modifiedBy) {
+    @JsonCreator
+    public Issue(final String issueSummary, final String issueDescription, final LocalDate identifiedDate, final String status, final String priority, final String progress, final LocalDate targetResolutionDate, final LocalDate actualResolutionDate, final String resolutionSummary, final String createdBy, final String modifiedBy, Employee assignedToEmployeeId, Employee identifiedByEmployeeId, Project relatedProjectId) {
         this.issueSummary = issueSummary;
         this.issueDescription = issueDescription;
         this.identifiedDate = identifiedDate;
+        this.actualResolutionDate = actualResolutionDate;
         this.status = status;
         this.priority = priority;
         this.progress = progress;
         this.targetResolutionDate = targetResolutionDate;
         this.resolutionSummary = resolutionSummary;
         this.createdBy = createdBy;
+        this.assignedToEmployeeId = assignedToEmployeeId;
+        this.identifiedByEmployeeId = identifiedByEmployeeId;
+        this.relatedProjectId = relatedProjectId;
         // REPLACE WHEN AUTH
         this.modifiedBy = modifiedBy;
     }
@@ -118,4 +125,16 @@ public class Issue {
     public int hashCode() {
         return this.getClass().hashCode();
     }
+
+//    public class IssueJsonDeserializer extends JsonDeserializer<Issue> {
+//        @Override
+//        public Issue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+//            if(jsonParser == null)return null;
+//
+//            Issue issue = new Issue();
+//            issue.setIdentifiedByEmployeeId(Integer.valueOf(jsonParser.getText()));
+//            return issue;
+//        }
+//    }
+
 }
