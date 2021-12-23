@@ -1,4 +1,5 @@
 package com.kb.kiwibugback.role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
+
     private ERole name;
 
     public Role() {

@@ -2,6 +2,7 @@ package com.kb.kiwibugback.employee;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kb.kiwibugback.issue.Issue;
 import com.kb.kiwibugback.project.Project;
 import com.kb.kiwibugback.role.Role;
@@ -51,12 +52,14 @@ public class Employee {
         this.email = email;
         this.password = password;
         this.employeeName = employeeName;
+        this.assignedProjects = assignedProjects;
     }
 
     @Column(name = "username")
     private String username;
 
     @Size(max = 120)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password")
     private String password;
 
@@ -76,7 +79,7 @@ public class Employee {
     @Column(name = "modified_by")
     private String modifiedBy;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "assigned_projects")
     private Project assignedProjects;
 

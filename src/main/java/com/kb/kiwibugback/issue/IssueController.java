@@ -57,7 +57,7 @@ public class IssueController {
         }
     }
 
-    @PutMapping("{id}")
+    @PatchMapping("{id}")
 //        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
 
     public ResponseEntity<Issue> updateIssue(@PathVariable("id") long id, @RequestBody Issue issue) {

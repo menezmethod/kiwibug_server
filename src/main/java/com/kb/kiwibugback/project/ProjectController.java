@@ -48,7 +48,7 @@ public class ProjectController {
                 }
         }
 
-        @PutMapping("{id}")
+        @PatchMapping("{id}")
 //        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
 
         public ResponseEntity<Project> updateProject(@PathVariable("id") long id, @RequestBody Project project) {
