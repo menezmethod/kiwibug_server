@@ -82,4 +82,15 @@ public class EmployeeController {
         employee.setProject(project);
         return this.employeeRepository.save(employee);
     }
+    @DeleteMapping("{id}")
+//        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
+
+    public ResponseEntity<HttpStatus> deleteIssue(@PathVariable("id") long id) {
+        try {
+            employeeRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
