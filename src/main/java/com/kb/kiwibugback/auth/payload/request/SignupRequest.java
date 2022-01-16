@@ -18,8 +18,6 @@ public class SignupRequest {
 
     private String employeeName;
 
-//    private LocalDateTime createdOn;
-
     private Set<String> role;
     
     @NotBlank

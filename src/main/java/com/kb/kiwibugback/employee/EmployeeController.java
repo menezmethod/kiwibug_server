@@ -28,13 +28,13 @@ public class EmployeeController {
     @GetMapping
 //    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
     List<Employee> getEmployees() {
-        return this.employeeRepository.findAll();
+        return employeeRepository.findAll();
     }
 
     @GetMapping("{id}")
 //        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") long id) {
-        Optional<Employee> employeeData = employeeRepository.findById(id);
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") final long id) {
+        final Optional<Employee> employeeData = this.employeeRepository.findById(id);
 
         if (employeeData.isPresent()) {
             return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
@@ -45,27 +45,27 @@ public class EmployeeController {
 
     @PostMapping
 //    @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
-    Employee createEmployee(@RequestBody final Employee employee) {
+    Employee createEmployee(@RequestBody Employee employee) {
 
-        return this.employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @PatchMapping("{id}")
 //        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
 
-    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, @RequestBody Employee employee) {
-        Optional<Employee> employeeData = employeeRepository.findById(id);
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") final long id, @RequestBody final Employee employee) {
+        final Optional<Employee> employeeData = this.employeeRepository.findById(id);
 
         if (employeeData.isPresent()) {
-            Employee _employee = employeeData.get();
+            final Employee _employee = employeeData.get();
             _employee.setEmployeeName(employee.getEmployeeName());
             _employee.setEmail(employee.getEmail());
             _employee.setUsername(employee.getUsername());
             _employee.setAssignedProjects(employee.getAssignedProjects());
             if (employee.getPassword() != null) {
-                _employee.setPassword(this.encoder.encode(employee.getPassword()));
+                _employee.setPassword(encoder.encode(employee.getPassword()));
             }
-            return new ResponseEntity<>(employeeRepository.save(_employee), HttpStatus.OK);
+            return new ResponseEntity<>(this.employeeRepository.save(_employee), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -74,22 +74,22 @@ public class EmployeeController {
     @PutMapping("/{employeeId}/projects/{projectId}")
 //    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     Employee assignProjectToEmployee(
-            @PathVariable final Long projectId,
-            @PathVariable final Long employeeId
+            @PathVariable Long projectId,
+            @PathVariable Long employeeId
     ) {
-        final Project project = this.projectRepository.findById(projectId).get();
-        final Employee employee = this.employeeRepository.findById(employeeId).get();
+        Project project = projectRepository.findById(projectId).get();
+        Employee employee = employeeRepository.findById(employeeId).get();
         employee.setProject(project);
-        return this.employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
     @DeleteMapping("{id}")
 //        @PreAuthorize("hasRole('USER') or hasRole('LEAD') or hasRole('MANAGER') or hasRole('ADMIN')")
 
-    public ResponseEntity<HttpStatus> deleteIssue(@PathVariable("id") long id) {
+    public ResponseEntity<HttpStatus> deleteIssue(@PathVariable("id") final long id) {
         try {
-            employeeRepository.deleteById(id);
+            this.employeeRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
