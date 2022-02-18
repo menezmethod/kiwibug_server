@@ -8,12 +8,17 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "project", indexes = @Index(name = "idx_project_name", columnList = "project_name"))
@@ -44,6 +49,7 @@ public class Project {
     @Column(name = "created_on", nullable = false, updatable = false)
     private LocalDateTime createdOn;
 
+    @CreatedBy
     @Column(name = "created_by")
     private String createdBy;
 
@@ -56,7 +62,7 @@ public class Project {
     private String modifiedBy;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "assignedProjects")
+    @OneToMany(mappedBy = "assignedProjects", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<Employee> employees;
 

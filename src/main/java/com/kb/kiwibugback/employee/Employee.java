@@ -11,6 +11,9 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -25,6 +28,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@EntityListeners(AuditingEntityListener.class)
 @RequiredArgsConstructor
 public class Employee {
     @Id
@@ -47,12 +51,12 @@ public class Employee {
     )
     private Set<Role> roles = new HashSet<>();
 
-    public Employee(final String username, final String email, final String password, final String employeeName) {
+    public Employee(String username, String email, String password, String employeeName) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.employeeName = employeeName;
-        this.assignedProjects = assignedProjects;
+        assignedProjects = this.assignedProjects;
     }
 
     @Column(name = "username")
@@ -68,6 +72,7 @@ public class Employee {
     @Column(name = "created_on", nullable = false, updatable = false)
     private LocalDateTime createdOn;
 
+    @CreatedBy
     @Column(name = "created_by")
     private String createdBy;
 
@@ -76,6 +81,7 @@ public class Employee {
     @Column(name = "modified_on")
     private LocalDateTime modifiedOn;
 
+    @LastModifiedBy
     @Column(name = "modified_by")
     private String modifiedBy;
 
@@ -93,20 +99,20 @@ public class Employee {
     @ToString.Exclude
     private Set<Issue> assignedToEmployeeId;
 
-    public void setProject(final Project project) {
-        assignedProjects = project;
+    public void setProject(Project project) {
+        this.assignedProjects = project;
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        final Employee employee = (Employee) o;
-        return this.employeeId != null && Objects.equals(this.employeeId, employee.employeeId);
+        Employee employee = (Employee) o;
+        return employeeId != null && Objects.equals(employeeId, employee.employeeId);
     }
 
     @Override
     public int hashCode() {
-        return this.getClass().hashCode();
+        return getClass().hashCode();
     }
 }
